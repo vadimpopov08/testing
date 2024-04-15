@@ -15,6 +15,21 @@ let questions = [
         options: ["17001", "7980", "9395", "459"],
         correctAnswer: "7980"
     },
+    {
+        question: "Сколько будет 456*18 + 95*457",
+        options: ["5678", "9889", "51623", "43415"],
+        correctAnswer: "51623"
+    },
+    {
+        question: "Сколько будет 455 + 457",
+        options: ["912", "913", "918", "957"],
+        correctAnswer: "912"
+    },
+    {
+        question: "Сколько будет 458*7",
+        options: ["3106", "3206", "3246", "8886"],
+        correctAnswer: "3206"
+    },
 ]
 
 let currentQuestion = 0; // Текущий вопрос
@@ -41,11 +56,40 @@ function displayQuestion() {
 
     })
     optionsElement.addEventListener('click', (event) => {
-        // Получает переменную кнопку на которую кликнули
+        // Получает переменную кнопку на которую кликнули:
         let target = event.target
         // Вызовем функцию проверки ответа и перехода к следующему вопросу (в аргумент функции передаём текст ответа):
         nextQuestion(target.textContent)
-    })
+    }, { once: true })
+}
+
+// Функция для перехода к следующему вопросу
+
+function nextQuestion(answer) {
+    // Если переданный ответ равен корректному то
+    if (answer === questions[currentQuestion].correctAnswer) {
+        // Увеличиваем на единицу количество верных ответов
+        correctAnswers++;
+    }
+    // Переходим к следующему вопросу
+    currentQuestion++;
+    // Если номер текущего вопроса меньше количества вопросов, то отбражаем следующий вопрос
+    if (currentQuestion < questions.length) {
+        displayQuestion();
+    }
+    else {
+        displayResult()
+    }
+}
+
+// Функция отображения результата теста
+function displayResult() {
+    let questionElement = document.getElementById("question")//Блок с вопросом
+    const optionsElement = document.getElementById("options")//Блок с вариантами ответов
+    const resultElement = document.getElementById("result")//Блок для отображения результатов
+    questionElement.style.display = "none";
+    optionsElement.style.display = "none";
+    resultElement.textContent = `Правильных ответов: ${correctAnswers} из ${questions.length}`
 }
 
 displayQuestion();
@@ -61,4 +105,4 @@ setInterval(() => {
     if (i >= backgrounds.length) {
         i = 0
     }
-}, 1000)
+}, 3000)

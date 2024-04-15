@@ -17,7 +17,7 @@ body {
     align-items: center;
     justify-content: center;
     background: url(../img/1.jpg) no-repeat center/cover;
-    transition: 0, 5s;
+    transition: 2s;
 }
 
 .quiz-cintainer {
