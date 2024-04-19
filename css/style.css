@@ -21,11 +21,20 @@ body {
 }
 
 .quiz-cintainer {
-    text-align: center;
-    background-color: rgb(0, 159, 0);
     width: 637px;
     padding: 25px;
     border-radius: 14px;
+}
+
+.test:not(.active) {
+    background-color: #fff;
+    display: none;
+}
+
+.test {
+    display: block;
+    background-color: rgb(0, 159, 0);
+    text-align: center;
 }
 
 .title {

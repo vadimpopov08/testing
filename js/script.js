@@ -1,3 +1,8 @@
+let userName = document.getElementById("userName")
+let genders = document.getElementById("gender")
+let sendButton = document.getElementById("sendButton")
+let form = document.getElementById("form")
+let test = document.querySelector(".test")
 // Массив с вопросами, вариантами ответов и правильными ответами
 let questions = [
     {
@@ -30,69 +35,116 @@ let questions = [
         options: ["3106", "3206", "3246", "8886"],
         correctAnswer: "3206"
     },
+    // {
+    //     question: "Сколько будет 458*7",
+    //     input,
+    //     correctAnswer: "3206"
+    // },
 ]
-
-let currentQuestion = 0; // Текущий вопрос
-let correctAnswers = 0; // Количество правильных ответов
-// Функция для отображения текущего вопроса и вариантов ответа
-function displayQuestion() {
-    let questionElement = document.getElementById("question"); //Получим блок куда размещать вопрос
-    questionElement.textContent = ` Вопрос ${currentQuestion + 1}: ${questions[currentQuestion].question}`
-    // Получим блоки кнопок
-    let optionsElement = document.getElementById("options")
-    // Очистим блок с кнопками
-    optionsElement.innerHTML = ""
-
-    //  Массив ответов
-    let optionsArray = questions[currentQuestion].options;
-
-    // Создать кнопки с вариантами ответов и привязать к ним функцию nextQuestion;
-    optionsArray.forEach((option) => {
-        let button = document.createElement('button')
-        button.classList.add('option')
-        optionsElement.append(button)
-        button.textContent = option;
-        // При клике на блок с кнопками
-
-    })
-    optionsElement.addEventListener('click', (event) => {
-        // Получает переменную кнопку на которую кликнули:
-        let target = event.target
-        // Вызовем функцию проверки ответа и перехода к следующему вопросу (в аргумент функции передаём текст ответа):
-        nextQuestion(target.textContent)
-    }, { once: true })
-}
-
-// Функция для перехода к следующему вопросу
-
-function nextQuestion(answer) {
-    // Если переданный ответ равен корректному то
-    if (answer === questions[currentQuestion].correctAnswer) {
-        // Увеличиваем на единицу количество верных ответов
-        correctAnswers++;
-    }
-    // Переходим к следующему вопросу
-    currentQuestion++;
-    // Если номер текущего вопроса меньше количества вопросов, то отбражаем следующий вопрос
-    if (currentQuestion < questions.length) {
-        displayQuestion();
+sendButton.addEventListener('click', (event) => {
+    console.log('OK');
+    event.preventDefault();
+    form.style.display = "none";
+    test.classList.add("active")
+    if (genders.value == "m") {
+        let gender = "m"
     }
     else {
-        displayResult()
+        let gender = "f"
     }
-}
+    let currentQuestion = 0; // Текущий вопрос
+    let correctAnswers = 0; // Количество правильных ответов
+    // Функция для отображения текущего вопроса и вариантов ответа
+    function displayQuestion() {
+        let questionElement = document.getElementById("question"); //Получим блок куда размещать вопрос
+        questionElement.textContent = ` Вопрос ${currentQuestion + 1}: ${questions[currentQuestion].question}`
+        // Получим блоки кнопок
+        let optionsElement = document.getElementById("options")
+        // Очистим блок с кнопками
+        optionsElement.innerHTML = ""
 
-// Функция отображения результата теста
-function displayResult() {
-    let questionElement = document.getElementById("question")//Блок с вопросом
-    const optionsElement = document.getElementById("options")//Блок с вариантами ответов
-    const resultElement = document.getElementById("result")//Блок для отображения результатов
-    questionElement.style.display = "none";
-    optionsElement.style.display = "none";
-    resultElement.textContent = `Правильных ответов: ${correctAnswers} из ${questions.length}`
-}
+        //  Массив ответов
+        let optionsArray = questions[currentQuestion].options;
 
-displayQuestion();
+        // Создать кнопки с вариантами ответов и привязать к ним функцию nextQuestion;
+        optionsArray.forEach((option) => {
+            let button = document.createElement('button')
+            button.classList.add('option')
+            optionsElement.append(button)
+            button.textContent = option;
+            // При клике на блок с кнопками
+
+        })
+        optionsElement.addEventListener('click', (event) => {
+            // Получает переменную кнопку на которую кликнули:
+            let target = event.target
+            // Вызовем функцию проверки ответа и перехода к следующему вопросу (в аргумент функции передаём текст ответа):
+            nextQuestion(target.textContent)
+        }, { once: true })
+    }
+
+    // Функция для перехода к следующему вопросу
+
+    function nextQuestion(answer) {
+        // Если переданный ответ равен корректному то
+        if (answer === questions[currentQuestion].correctAnswer) {
+            // Увеличиваем на единицу количество верных ответов
+            correctAnswers++;
+        }
+        // Переходим к следующему вопросу
+        currentQuestion++;
+        // Если номер текущего вопроса меньше количества вопросов, то отбражаем следующий вопрос
+        if (currentQuestion < questions.length) {
+            displayQuestion();
+        }
+        else {
+            displayResult()
+        }
+    }
+
+    // Функция отображения результата теста
+    function displayResult() {
+        let questionElement = document.getElementById("question")//Блок с вопросом
+        const optionsElement = document.getElementById("options")//Блок с вариантами ответов
+        const resultElement = document.getElementById("result")//Блок для отображения результатов
+        questionElement.style.display = "none";
+        optionsElement.style.display = "none";
+        let mark = correctAnswers / questions.length * 100
+        if (mark < 50) {
+            mark = 2
+        }
+        else if (mark >= 50 && mark < 65) {
+            mark = 3
+        }
+
+        else if (mark >= 65 && mark < 95) {
+            mark = 4
+        }
+        else if (mark >= 95) {
+            mark = 5
+        }
+        if (gender == "m") {
+            if (mark == 2) {
+                resultElement.textContent = `Дорогой ${userName.value}! У Вас правильных ответов: ${correctAnswers} из ${questions.length}. Оценка ${mark}. Попробуйте ещё раз!`
+            }
+            else {
+                resultElement.textContent = `Дорогой ${userName.value}! У Вас правильных ответов: ${correctAnswers} из ${questions.length}. Оценка ${mark}`
+            }
+        }
+        else {
+            if (mark == 2) {
+                resultElement.textContent = `Дорогая ${userName.value}! У Вас правильных ответов: ${correctAnswers} из ${questions.length}. Оценка ${mark}. Попробуйте ещё раз!`
+            }
+            else {
+                resultElement.textContent = `Дорогая ${userName.value}! У Вас правильных ответов: ${correctAnswers} из ${questions.length}. Оценка ${mark}`
+            }
+        }
+        // неоааааааааааааааааааааааааааааааааааааааааааааааааааааафукефуке
+    }
+
+    displayQuestion();
+})
+
 
 let wrapper = document.querySelector('.wrapper')
 let backgrounds = ["url(../img/2.jpg)", "url(../img/3.jpg)", "url(../img/4.jpg)", "url(../img/1.jpg)"]

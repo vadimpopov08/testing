@@ -11,22 +11,31 @@
 <body>
     <div class="wrapper">
         <div class="quiz-cintainer">
-            <h1 class="title">
-                Проверка усвоенного материала
-            </h1>
-            <div class="question" id="question">
-                <!-- Здесь будет отображаться текущий вопрос -->
-                <!-- Вопрос 1: Сколько будет (4/459)/(7/2295) -->
-
-            </div>
-            <div class="options" id="options">
-                <button onclick="nextQuestion('17 7/9')" class="option">17 7/9</button>
-                <button onclick="nextQuestion('1 8/9')" class="option">1 8/9</button>
-                <button onclick="nextQuestion('2 6/7')" class="option">2 6/7</button>
-                <button onclick="nextQuestion('78')" class="option">78</button>
-            </div>
-            <div class="result" id="result">
-                <!-- Здесь будут отображаться результаты тестов -->
+            <form action="" id="form">
+                <select name="" id="gender">
+                    <option value="m">Мужской</option>
+                    <option value="f">Женский</option>
+                </select>
+                <input type="text" id="userName">
+                <button id="sendButton">Перейти к тесту</button>
+            </form>
+            <div class="test">
+                <h1 class="title">
+                    Проверка усвоенного материала
+                </h1>
+                <div class="question" id="question">
+                    <!-- Здесь будет отображаться текущий вопрос -->
+                    <!-- Вопрос 1: Сколько будет (4/459)/(7/2295) -->
+                </div>
+                <div class="options" id="options">
+                    <button onclick="nextQuestion('17 7/9')" class="option">17 7/9</button>
+                    <button onclick="nextQuestion('1 8/9')" class="option">1 8/9</button>
+                    <button onclick="nextQuestion('2 6/7')" class="option">2 6/7</button>
+                    <button onclick="nextQuestion('78')" class="option">78</button>
+                </div>
+                <div class="result" id="result">
+                    <!-- Здесь будут отображаться результаты тестов -->
+                </div>
             </div>
         </div>
     </div>
