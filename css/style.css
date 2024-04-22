@@ -22,12 +22,47 @@ body {
 
 .quiz-cintainer {
     width: 637px;
+    height: 248px;
     padding: 25px;
     border-radius: 14px;
 }
 
-.test:not(.active) {
+#form {
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* height: 125px; */
+    padding: 25px;
+    row-gap: 10px;
+}
+
+#gender {
+    display: block;
+    width: 122px;
+    height: 45px;
+    border: 3px dashed darkgreen;
+}
+
+#userName {
+    width: 422px;
+    height: 32px;
+    border: 5px dashed darkgreen;
+    font-size: 18px;
+}
+
+#sendButton {
+    width: 174px;
+    height: 38px;
+    background: none;
+    border: 5px dotted darkgreen;
+    color: darkgreen;
+    font-size: 19px;
+    text-align: center;
+}
+
+.test:not(.active) {
+
     display: none;
 }
 
@@ -35,6 +70,7 @@ body {
     display: block;
     background-color: rgb(0, 159, 0);
     text-align: center;
+    padding: 25px;
 }
 
 .title {

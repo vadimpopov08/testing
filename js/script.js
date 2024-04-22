@@ -41,16 +41,18 @@ let questions = [
     //     correctAnswer: "3206"
     // },
 ]
+let uncorrect = []
 sendButton.addEventListener('click', (event) => {
     console.log('OK');
     event.preventDefault();
     form.style.display = "none";
     test.classList.add("active")
+    let gender;
     if (genders.value == "m") {
-        let gender = "m"
+        gender = "m"
     }
     else {
-        let gender = "f"
+        gender = "f"
     }
     let currentQuestion = 0; // Текущий вопрос
     let correctAnswers = 0; // Количество правильных ответов
@@ -91,6 +93,9 @@ sendButton.addEventListener('click', (event) => {
             // Увеличиваем на единицу количество верных ответов
             correctAnswers++;
         }
+        else {
+            uncorrect.push(questions[currentQuestion].question)
+        }
         // Переходим к следующему вопросу
         currentQuestion++;
         // Если номер текущего вопроса меньше количества вопросов, то отбражаем следующий вопрос
@@ -104,6 +109,7 @@ sendButton.addEventListener('click', (event) => {
 
     // Функция отображения результата теста
     function displayResult() {
+        console.log(uncorrect)
         let questionElement = document.getElementById("question")//Блок с вопросом
         const optionsElement = document.getElementById("options")//Блок с вариантами ответов
         const resultElement = document.getElementById("result")//Блок для отображения результатов
@@ -124,11 +130,15 @@ sendButton.addEventListener('click', (event) => {
             mark = 5
         }
         if (gender == "m") {
-            if (mark == 2) {
-                resultElement.textContent = `Дорогой ${userName.value}! У Вас правильных ответов: ${correctAnswers} из ${questions.length}. Оценка ${mark}. Попробуйте ещё раз!`
-            }
-            else {
-                resultElement.textContent = `Дорогой ${userName.value}! У Вас правильных ответов: ${correctAnswers} из ${questions.length}. Оценка ${mark}`
+            resultElement.textContent = `Дорогой ${userName.value}! У Вас правильных ответов: ${correctAnswers} из ${questions.length}. Оценка ${mark}.`
+            uncorrect.forEach((item) => {
+                let uncorrectAnswer = document.createElement("div")
+                resultElement.appendChild(uncorrectAnswer)
+                uncorrectAnswer.textContent = item
+            })
+            if (mark <= 4) {
+                resultElement.textContent = resultElement.textContent + `${innerHTML = "<br>"}` + `Попробуйте ещё раз!`
+
             }
         }
         else {
@@ -157,4 +167,4 @@ setInterval(() => {
     if (i >= backgrounds.length) {
         i = 0
     }
-}, 3000)
+}, 25000)
